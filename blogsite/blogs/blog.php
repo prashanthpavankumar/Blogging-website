@@ -32,47 +32,60 @@ $likes_result = $conn->query("SELECT
     FROM likes WHERE blog_id = $blog_id");
 $reaction = $likes_result->fetch_assoc();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title><?= htmlspecialchars($blog['title']) ?></title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 700px; margin: auto; padding: 20px; }
-        .blog-image { max-width: 100%; height: auto; margin-bottom: 15px; }
-        .blog-meta { color: gray; font-size: 0.9em; margin-bottom: 10px; }
-        .reaction-buttons form { display: inline-block; margin-right: 10px; }
-        .back-link { display: inline-block; margin-top: 20px; }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-    <h1><?= htmlspecialchars($blog['title']) ?></h1>
-    <div class="blog-meta">
-        By <?= htmlspecialchars($blog['username']) ?> on <?= $blog['created_at'] ?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="../index.php">Blogsite</a>
+        <a class="btn btn-outline-light" href="../index.php">&larr; Home</a>
     </div>
+</nav>
 
-    <?php if ($blog['image_url']): ?>
-        <img src="<?= htmlspecialchars($blog['image_url']) ?>" class="blog-image" alt="Blog Image">
-    <?php endif; ?>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="card-title text-primary mb-2"><?= htmlspecialchars($blog['title']) ?></h1>
+                    <div class="text-muted mb-3">
+                        By <b><?= htmlspecialchars($blog['username']) ?></b> • <?= htmlspecialchars($blog['created_at']) ?>
+                    </div>
+                    <?php if ($blog['image_url']): ?>
+                        <img src="<?= htmlspecialchars($blog['image_url']) ?>" class="img-fluid rounded mb-3" alt="Blog Image">
+                    <?php endif; ?>
+                    <div class="card-text mb-4" style="white-space: pre-line;">
+                        <?= nl2br(htmlspecialchars($blog['content'])) ?>
+                    </div>
 
-    <p><?= nl2br(htmlspecialchars($blog['content'])) ?></p>
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <form action="like.php" method="POST" class="d-inline">
+                            <input type="hidden" name="blog_id" value="<?= $blog_id ?>">
+                            <input type="hidden" name="type" value="like">
+                            <button class="btn btn-outline-success" type="submit">
+                                👍 Like (<?= $reaction['likes'] ?? 0 ?>)
+                            </button>
+                        </form>
 
-    <div class="reaction-buttons">
-        <form action="like.php" method="POST">
-            <input type="hidden" name="blog_id" value="<?= $blog_id ?>">
-            <input type="hidden" name="type" value="like">
-            <button type="submit">👍 Like (<?= $reaction['likes'] ?? 0 ?>)</button>
-        </form>
-
-        <form action="like.php" method="POST">
-            <input type="hidden" name="blog_id" value="<?= $blog_id ?>">
-            <input type="hidden" name="type" value="dislike">
-            <button type="submit">👎 Dislike (<?= $reaction['dislikes'] ?? 0 ?>)</button>
-        </form>
+                        <form action="like.php" method="POST" class="d-inline">
+                            <input type="hidden" name="blog_id" value="<?= $blog_id ?>">
+                            <input type="hidden" name="type" value="dislike">
+                            <button class="btn btn-outline-danger" type="submit">
+                                👎 Dislike (<?= $reaction['dislikes'] ?? 0 ?>)
+                            </button>
+                        </form>
+                    </div>
+                    <a href="../index.php" class="btn btn-secondary">&larr; Back to Home</a>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <a href="../index.php" class="back-link">← Back to Home</a>
 </body>
 </html>
-
