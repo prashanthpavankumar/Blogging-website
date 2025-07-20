@@ -49,3 +49,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-7">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="mb-4 text-primary text-center">Create a New Blog Post</h2>
+                    <?php if ($msg): ?>
+                        <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>
+                    <?php endif; ?>
+                    <form method="post" action="">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                            <input type="text" id="title" name="title" class="form-control" required placeholder="Blog Title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Content <span class="text-danger">*</span></label>
+                            <textarea id="content" name="content" rows="8" class="form-control" required placeholder="Write your blog here..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image_url" class="form-label">Image URL (optional)</label>
+                            <input type="url" id="image_url" name="image_url" class="form-control" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Post Blog</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-3 text-center">
+                <a href="../index.php" class="btn btn-link">&larr; Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
