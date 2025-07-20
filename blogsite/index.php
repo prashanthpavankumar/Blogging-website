@@ -43,4 +43,24 @@ endif;
 
 </body>
 </html>
+<?php
+session_start();
+include 'config/db.php';
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Homepage</title>
+    <link rel="stylesheet" href="style.css"> <!-- Make sure path is correct -->
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Welcome to the Blog</h1>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <p>Hello, <b><?= htmlspecialchars($_SESSION['username']) ?></b> |
+            <a href="auth/logout.php">Logout</a></p>
+            <p><a class="button-link" href="blogs/create_blog.php">➕ Create New Blog</a></p>
+
 
