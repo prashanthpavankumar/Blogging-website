@@ -29,26 +29,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Create Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-<h2>Create a New Blog Post</h2>
-<?php if ($msg) echo "<p style='color:red;'>$msg</p>"; ?>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="../index.php">Blogsite</a>
+        <div class="d-flex">
+            <a class="btn btn-outline-light" href="../index.php">&larr; Home</a>
+        </div>
+    </div>
+</nav>
 
-<form method="post" action="">
-    <input type="text" name="title" placeholder="Title" required><br><br>
-    <textarea name="content" rows="10" cols="50" placeholder="Write your blog here..." required></textarea><br><br>
-    <input type="text" name="image_url" placeholder="Image URL (optional)"><br><br>
-    <button type="submit">Post Blog</button>
-</form>
-
-<p><a href="../index.php">← Back to Home</a></p>
-
-</body>
-</html>
-
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
